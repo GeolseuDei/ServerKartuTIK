@@ -172,6 +172,9 @@ public class DatabaseServer {
                                 + ",tempatlahir"
                                 + ",alamat"
                                 + ",perubahanalamat1"+ ","
+                                
+                                //10
+                                
                         + "perubahanalamat2"
                                 + ",perubahanalamat3"
                                 + ",kedudukandalamkeluarga"
@@ -182,6 +185,9 @@ public class DatabaseServer {
                                 + ",jabatan,"
                         + "instansilembagakantor"
                                 + ",namaistri"
+                                
+                                //20
+                                
                                 + ",umuristri"
                                 + ",pekerjaanistri"
                                 + ",namabapakistri"
@@ -192,6 +198,9 @@ public class DatabaseServer {
                                 + ",pekerjaanibuistri"
                                 + ",alamatorangtuaistri"
                                 + ",tanggungan"
+                                
+                                //30
+                                
                                 + ",alamattanggungan"
                                 + ",namaanak1"
                                 + ",umuranak1,"
@@ -202,6 +211,9 @@ public class DatabaseServer {
                                 + "namaanak3"
                                 + ",umuranak3"
                                 + ",pekerjaananak3"
+                                
+                                //40
+                                
                                 + ",namaanak4"
                                 + ",umuranak4"
                                 + ",pekerjaananak4,"
@@ -212,6 +224,9 @@ public class DatabaseServer {
                                 + ",umuranak6"
                                 + ",pekerjaananak6"
                                 + ",rambut"
+                                
+                                //50
+                                
                                 + ",muka"
                                 + ",kulit,"
                                 + "tinggi"
@@ -222,6 +237,9 @@ public class DatabaseServer {
                                 + ",namasekolah2,"
                                 + "tahunlulussekolah2,"
                                 + "namasekolah3,"
+                                
+                                //60
+                                
                                 + "tahunlulussekolah3,"
                         + "namasekolah4,"
                                 + "tahunlulussekolah4,"
@@ -232,7 +250,14 @@ public class DatabaseServer {
                                 + "hobi,catatankriminal1,"
                         + "catatankriminal2"
                                 + ",catatankriminal3,"
+                                
+                                //70
+                                
                                 + "urlfoto) "
+                                
+                                //71
+                                
+                                
                                 + "values ('" + d.getNamalengkap() 
                                 + "','" + d.getAlias() 
                                 + "','" + d.getTglnoktp()
@@ -243,6 +268,9 @@ public class DatabaseServer {
                                 + "','" + d.getTempatlahir() 
                         + "','" + d.getAlamat() 
                                 + "','" + d.getPerubahanalamat1() 
+                                
+                                //10
+                                
                                 + "','" + d.getPerubahanalamat2() 
                                 + "','"+ d.getPerubahanalamat3() 
                                 + "','" + d.getKedudukan() 
@@ -253,6 +281,9 @@ public class DatabaseServer {
                                 + "','" + d.getJabatan() 
                                 + "','"+ d.getInstansilembagakantor() 
                                 + "','" + d.getNamaistri() 
+                               
+                                //20
+                                
                                 + "','"+ d.getUmuristri() 
                                 + "','" + d.getPekerjaanistri() 
                         + "','" + d.getNamabapakistri()
@@ -263,7 +294,10 @@ public class DatabaseServer {
                                 + "','" + d.getPekerjaanibuistri()
                                 + "','" + d.getAlamatorgtuaistri() 
                                 + "','" + d.getTanggungan()  + "','"
-                        + d.getAlamattanggungan()
+                        
+                                //30
+                                
+                                + d.getAlamattanggungan()
                                 + "','" + d.getNamaanak1()
                                 + "','" + d.getUmuranak1()
                                 + "','" + d.getPekerjaananak1()
@@ -273,7 +307,10 @@ public class DatabaseServer {
                                 + "','" + d.getNamaanak3()
                                 + "','" + d.getUmuranak3()
                                 + "','" + d.getPekerjaananak3() 
-                        + "','" + d.getNamaanak4() 
+                        
+                                //40
+                                
+                                + "','" + d.getNamaanak4() 
                                 + "','" + d.getUmuranak4() 
                                 + "','" + d.getPekerjaananak4()
                                 + "','" + d.getNamaanak5()
@@ -283,7 +320,10 @@ public class DatabaseServer {
                                 + "','" + d.getUmuranak6()
                                 + "','" + d.getPekerjaananak6() 
                                 + "','" + d.getRambut() 
-                        + "','" + d.getMuka() 
+                        
+                                //50
+                                
+                                + "','" + d.getMuka() 
                                 + "','" + d.getKulit()
                                 + "','" + d.getTinggi()
                                 + "','" + d.getTandaistimewa()
@@ -293,6 +333,9 @@ public class DatabaseServer {
                                 + "','" + d.getNamasekolah2()
                                 + "','" + d.getTahunlulussekolah2()  + "','" 
                         + d.getNamasekolah3()
+                                
+                                //60
+                                
                                 + "','" + d.getTahunlulussekolah3()
                                 + "','" + d.getNamasekolah4()
                                 + "','" + d.getTahunlulussekolah4()
@@ -303,8 +346,13 @@ public class DatabaseServer {
                         + "','" + d.getHobi() 
                                 + "','" + d.getCatatankriminal1() 
                                 + "','" + d.getCatatankriminal2()
+                                
+                                //70
+                                
                                 + "','" + d.getCatatankriminal3()  + "','"
                         + "test" + "')"
+                        
+                                //72
                 );
                 int a = sql.executeUpdate();
                 status = true;
