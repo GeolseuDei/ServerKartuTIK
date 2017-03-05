@@ -287,13 +287,11 @@ public class DatabaseServer {
                                 + "','" + d.getKulit()
                                 + "','" + d.getTinggi()
                                 + "','" + d.getTandaistimewa()
-                                + "','" + d.getRumussidikjari() 
-                                + "','"
+                                + "','" + d.getRumussidikjari()+ "','"
                         + d.getNamasekolah1()
                                 + "','" + d.getTahunlulussekolah1() 
                                 + "','" + d.getNamasekolah2()
-                                + "','" + d.getTahunlulussekolah2()
-                                + "','" 
+                                + "','" + d.getTahunlulussekolah2()  + "','" 
                         + d.getNamasekolah3()
                                 + "','" + d.getTahunlulussekolah3()
                                 + "','" + d.getNamasekolah4()
