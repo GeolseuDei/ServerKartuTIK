@@ -160,199 +160,196 @@ public class DatabaseServer {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "insert into datatik (namalengkap"
-                                + ",alias"
-                                + ",tglnoktp"
-                                + ",tglnopasport"
-                                + ",agama"
-                                + ",tgllahir"
-                                + ",umur"
-                                + ",tempatlahir"
-                                + ",alamat"
-                                + ",perubahanalamat1"+ ","
-                                
-                                //10
-                                
-                        + "perubahanalamat2"
-                                + ",perubahanalamat3"
-                                + ",kedudukandalamkeluarga"
-                                + ",namabapak"
-                                + ",namaibu"
-                                + ",alamatorangtua"
-                                + ",pekerjaan"
-                                + ",jabatan,"
-                        + "instansilembagakantor"
-                                + ",namaistri"
-                                
-                                //20
-                                
-                                + ",umuristri"
-                                + ",pekerjaanistri"
-                                + ",namabapakistri"
-                                + ",umurbapakistri"
-                                + ",pekerjaanbapakistri,"
-                        + "namaibuistri"
-                                + ",umuribuistri"
-                                + ",pekerjaanibuistri"
-                                + ",alamatorangtuaistri"
-                                + ",tanggungan"
-                                
-                                //30
-                                
-                                + ",alamattanggungan"
-                                + ",namaanak1"
-                                + ",umuranak1,"
-                        + "pekerjaananak1"
-                                + ",namaanak2"
-                                + ",umuranak2"
-                                + ",pekerjaananak2,"
-                                + "namaanak3"
-                                + ",umuranak3"
-                                + ",pekerjaananak3"
-                                
-                                //40
-                                
-                                + ",namaanak4"
-                                + ",umuranak4"
-                                + ",pekerjaananak4,"
-                        + "namaanak5"
-                                + ",umuranak5"
-                                + ",pekerjaananak5"
-                                + ",namaanak6"
-                                + ",umuranak6"
-                                + ",pekerjaananak6"
-                                + ",rambut"
-                                
-                                //50
-                                
-                                + ",muka"
-                                + ",kulit,"
-                                + "tinggi"
-                                + ",tandaistimewa"
-                                + ",rumussidikjari,"
-                        + "namasekolah1"
-                                + ",tahunlulussekolah1"
-                                + ",namasekolah2,"
-                                + "tahunlulussekolah2,"
-                                + "namasekolah3,"
-                                
-                                //60
-                                
-                                + "tahunlulussekolah3,"
-                        + "namasekolah4,"
-                                + "tahunlulussekolah4,"
-                                + "namasekolah5,"
-                                + "tahunlulussekolah5"
-                                + ",namasekolah6,"
-                                + "tahunlulussekolah6,"
-                                + "hobi,catatankriminal1,"
-                        + "catatankriminal2"
-                                + ",catatankriminal3,"
-                                
-                                //70
-                                
-                                + "urlfoto) "
-                                
-                                //71
-                                
-                                
-                                + "values ('" + d.getNamalengkap() 
-                                + "','" + d.getAlias() 
-                                + "','" + d.getTglnoktp()
-                        + "','" + d.getTglnopasport() 
-                                + "','" + d.getAgama() 
-                                + "','" + d.getTgllahir() 
-                                + "','" + d.getUmur() 
-                                + "','" + d.getTempatlahir() 
-                        + "','" + d.getAlamat() 
-                                + "','" + d.getPerubahanalamat1() 
-                                
-                                //10
-                                
-                                + "','" + d.getPerubahanalamat2() 
-                                + "','"+ d.getPerubahanalamat3() 
-                                + "','" + d.getKedudukan() 
-                                + "','" + d.getNamabapak() 
-                                + "','" + d.getNamaibu() 
-                                + "','" + d.getAlamatorgtua() 
-                                + "','" + d.getPekerjaan() 
-                                + "','" + d.getJabatan() 
-                                + "','"+ d.getInstansilembagakantor() 
-                                + "','" + d.getNamaistri() 
-                               
-                                //20
-                                
-                                + "','"+ d.getUmuristri() 
-                                + "','" + d.getPekerjaanistri() 
-                        + "','" + d.getNamabapakistri()
-                                + "','" + d.getUmurbapakistri() 
-                                + "','" + d.getPekerjaanbapakistri()
-                                + "','" + d.getNamaibuistri() 
-                        + "','" + d.getUmuribuistri()
-                                + "','" + d.getPekerjaanibuistri()
-                                + "','" + d.getAlamatorgtuaistri() 
-                                + "','" + d.getTanggungan()  + "','"
-                        
-                                //30
-                                
-                                + d.getAlamattanggungan()
-                                + "','" + d.getNamaanak1()
-                                + "','" + d.getUmuranak1()
-                                + "','" + d.getPekerjaananak1()
-                                + "','" + d.getNamaanak2()
-                        + "','" + d.getUmuranak2() 
-                                + "','" + d.getPekerjaananak2()
-                                + "','" + d.getNamaanak3()
-                                + "','" + d.getUmuranak3()
-                                + "','" + d.getPekerjaananak3() 
-                        
-                                //40
-                                
-                                + "','" + d.getNamaanak4() 
-                                + "','" + d.getUmuranak4() 
-                                + "','" + d.getPekerjaananak4()
-                                + "','" + d.getNamaanak5()
-                                + "','" + d.getUmuranak5() 
-                        + "','" + d.getPekerjaananak5()
-                                + "','" + d.getNamaanak6()
-                                + "','" + d.getUmuranak6()
-                                + "','" + d.getPekerjaananak6() 
-                                + "','" + d.getRambut() 
-                        
-                                //50
-                                
-                                + "','" + d.getMuka() 
-                                + "','" + d.getKulit()
-                                + "','" + d.getTinggi()
-                                + "','" + d.getTandaistimewa()
-                                + "','" + d.getRumussidikjari()+ "','"
-                        + d.getNamasekolah1()
-                                + "','" + d.getTahunlulussekolah1() 
-                                + "','" + d.getNamasekolah2()
-                                + "','" + d.getTahunlulussekolah2()  + "','" 
-                        + d.getNamasekolah3()
-                                
-                                //60
-                                
-                                + "','" + d.getTahunlulussekolah3()
-                                + "','" + d.getNamasekolah4()
-                                + "','" + d.getTahunlulussekolah4()
-                        + d.getNamasekolah5()
-                                + "','" + d.getTahunlulussekolah5()
-                                + "','" + d.getNamasekolah6() 
-                                + "','" + d.getTahunlulussekolah6()
-                        + "','" + d.getHobi() 
-                                + "','" + d.getCatatankriminal1() 
-                                + "','" + d.getCatatankriminal2()
-                                
-                                //70
-                                
-                                + "','" + d.getCatatankriminal3()  + "','"
-                        + "test" + "')"
-                        
-                                //72
+                        "insert into datatik ("
+                        + "namalengkap"
+                        + ",alias"
+                        + ",tglnoktp"
+                        + ",tglnopasport"
+                        + ",agama"
+                        + ",tgllahir"
+                        + ",umur"
+                        + ",tempatlahir"
+                        + ",alamat"
+                        + ",perubahanalamat1"
+                        //                                + ","
+                        //                                
+                        //                                //10
+                        //                                
+                        //                        + "perubahanalamat2"
+                        //                                + ",perubahanalamat3"
+                        //                                + ",kedudukandalamkeluarga"
+                        //                                + ",namabapak"
+                        //                                + ",namaibu"
+                        //                                + ",alamatorangtua"
+                        //                                + ",pekerjaan"
+                        //                                + ",jabatan,"
+                        //                        + "instansilembagakantor"
+                        //                                + ",namaistri"
+                        //                                
+                        //                                //20
+                        //                                
+                        //                                + ",umuristri"
+                        //                                + ",pekerjaanistri"
+                        //                                + ",namabapakistri"
+                        //                                + ",umurbapakistri"
+                        //                                + ",pekerjaanbapakistri,"
+                        //                        + "namaibuistri"
+                        //                                + ",umuribuistri"
+                        //                                + ",pekerjaanibuistri"
+                        //                                + ",alamatorangtuaistri"
+                        //                                + ",tanggungan"
+                        //                                
+                        //                                //30
+                        //                                
+                        //                                + ",alamattanggungan"
+                        //                                + ",namaanak1"
+                        //                                + ",umuranak1,"
+                        //                        + "pekerjaananak1"
+                        //                                + ",namaanak2"
+                        //                                + ",umuranak2"
+                        //                                + ",pekerjaananak2,"
+                        //                                + "namaanak3"
+                        //                                + ",umuranak3"
+                        //                                + ",pekerjaananak3"
+                        //                                
+                        //                                //40
+                        //                                
+                        //                                + ",namaanak4"
+                        //                                + ",umuranak4"
+                        //                                + ",pekerjaananak4,"
+                        //                        + "namaanak5"
+                        //                                + ",umuranak5"
+                        //                                + ",pekerjaananak5"
+                        //                                + ",namaanak6"
+                        //                                + ",umuranak6"
+                        //                                + ",pekerjaananak6"
+                        //                                + ",rambut"
+                        //                                
+                        //                                //50
+                        //                                
+                        //                                + ",muka"
+                        //                                + ",kulit,"
+                        //                                + "tinggi"
+                        //                                + ",tandaistimewa"
+                        //                                + ",rumussidikjari,"
+                        //                        + "namasekolah1"
+                        //                                + ",tahunlulussekolah1"
+                        //                                + ",namasekolah2,"
+                        //                                + "tahunlulussekolah2,"
+                        //                                + "namasekolah3,"
+                        //                                
+                        //                                //60
+                        //                                
+                        //                                + "tahunlulussekolah3,"
+                        //                        + "namasekolah4,"
+                        //                                + "tahunlulussekolah4,"
+                        //                                + "namasekolah5,"
+                        //                                + "tahunlulussekolah5"
+                        //                                + ",namasekolah6,"
+                        //                                + "tahunlulussekolah6,"
+                        //                                + "hobi,"
+                        //                                + "catatankriminal1,"
+                        //                        + "catatankriminal2"                               
+                        //                                
+                        //                                //70
+                        //                                
+                        //                                + ",catatankriminal3,"
+                        //                                + "urlfoto"
+                        + ") "
+                        //72
+
+                        + "values ('"
+                        + d.getNamalengkap()
+                        + "','" + d.getAlias()
+                        + "','" + d.getTglnoktp()
+                        + "','" + d.getTglnopasport()
+                        + "','" + d.getAgama()
+                        + "','" + d.getTgllahir()
+                        + "','" + d.getUmur()
+                        + "','" + d.getTempatlahir()
+                        + "','" + d.getAlamat()
+                        + "','" + d.getPerubahanalamat1()
+                        //10
+
+                        //                        + "','" + d.getPerubahanalamat2()
+                        //                        + "','" + d.getPerubahanalamat3()
+                        //                        + "','" + d.getKedudukan()
+                        //                        + "','" + d.getNamabapak()
+                        //                        + "','" + d.getNamaibu()
+                        //                        + "','" + d.getAlamatorgtua()
+                        //                        + "','" + d.getPekerjaan()
+                        //                        + "','" + d.getJabatan()
+                        //                        + "','" + d.getInstansilembagakantor()
+                        //                        + "','" + d.getNamaistri()
+                        //                        //20
+                        //
+                        //                        + "','" + d.getUmuristri()
+                        //                        + "','" + d.getPekerjaanistri()
+                        //                        + "','" + d.getNamabapakistri()
+                        //                        + "','" + d.getUmurbapakistri()
+                        //                        + "','" + d.getPekerjaanbapakistri()
+                        //                        + "','" + d.getNamaibuistri()
+                        //                        + "','" + d.getUmuribuistri()
+                        //                        + "','" + d.getPekerjaanibuistri()
+                        //                        + "','" + d.getAlamatorgtuaistri()
+                        //                        + "','" + d.getTanggungan() + "','"
+                        //                        //30
+                        //
+                        //                        + d.getAlamattanggungan()
+                        //                        + "','" + d.getNamaanak1()
+                        //                        + "','" + d.getUmuranak1()
+                        //                        + "','" + d.getPekerjaananak1()
+                        //                        + "','" + d.getNamaanak2()
+                        //                        + "','" + d.getUmuranak2()
+                        //                        + "','" + d.getPekerjaananak2()
+                        //                        + "','" + d.getNamaanak3()
+                        //                        + "','" + d.getUmuranak3()
+                        //                        + "','" + d.getPekerjaananak3()
+                        //                        //40
+                        //
+                        //                        + "','" + d.getNamaanak4()
+                        //                        + "','" + d.getUmuranak4()
+                        //                        + "','" + d.getPekerjaananak4()
+                        //                        + "','" + d.getNamaanak5()
+                        //                        + "','" + d.getUmuranak5()
+                        //                        + "','" + d.getPekerjaananak5()
+                        //                        + "','" + d.getNamaanak6()
+                        //                        + "','" + d.getUmuranak6()
+                        //                        + "','" + d.getPekerjaananak6()
+                        //                        + "','" + d.getRambut()
+                        //                        //50
+                        //
+                        //                        + "','" + d.getMuka()
+                        //                        + "','" + d.getKulit()
+                        //                        + "','" + d.getTinggi()
+                        //                        + "','" + d.getTandaistimewa()
+                        //                        + "','" + d.getRumussidikjari() + "','"
+                        //                        + d.getNamasekolah1()
+                        //                        + "','" + d.getTahunlulussekolah1()
+                        //                        + "','" + d.getNamasekolah2()
+                        //                        + "','" + d.getTahunlulussekolah2() + "','"
+                        //                        + d.getNamasekolah3()
+                        //                        //60
+                        //
+                        //                        + "','" + d.getTahunlulussekolah3()
+                        //                        + "','" + d.getNamasekolah4()
+                        //                        + "','" + d.getTahunlulussekolah4()
+                        //                        + d.getNamasekolah5()
+                        //                        + "','" + d.getTahunlulussekolah5()
+                        //                        + "','" + d.getNamasekolah6()
+                        //                        + "','" + d.getTahunlulussekolah6()
+                        //                        + "','" + d.getHobi()
+                        //                        + "','" + d.getCatatankriminal1()
+                        //                        + "','" + d.getCatatankriminal2()
+                        //                        //70
+                        //
+                        //                        + "','" + d.getCatatankriminal3() + "','"
+                        //                        + "test"
+                        + "')"
+                //72
                 );
                 int a = sql.executeUpdate();
                 status = true;
