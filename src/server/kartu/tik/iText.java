@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  *
@@ -687,11 +688,14 @@ public class iText {
         this.urlfoto = urlfoto;
     }
 
-    public void createPDF() {
+    public String createPDF(String tanggal, ArrayList kegiatan) {
+        ArrayList<Kegiatan> list = new ArrayList<>(kegiatan);
+
+        String output = System.getProperty("user.dir") + "\\src\\data\\pdf\\" + tanggal + " " + getNamalengkap() + "-" + getTglnoktp() + ".pdf";
         Document document = new Document(PageSize.A4);
         try {
             PdfWriter.getInstance(document,
-                    new FileOutputStream(System.getProperty("user.dir") + "\\src\\data\\pdf\\HelloWorld.pdf"));
+                    new FileOutputStream(output));
 
             document.open();
 
@@ -856,7 +860,7 @@ public class iText {
             //------------------------------------------------------------------------------------- INSTANSI DLL END
 
             //------------------------------------------------------------------------------------- NAMA ISTRI
-            float[] colomn = {7,1,2};
+            float[] colomn = {7, 1, 2};
             PdfPTable tabel9 = new PdfPTable(colomn);
             tabel9.setWidthPercentage(100);
 
@@ -876,21 +880,21 @@ public class iText {
             Paragraph pUmurIstriBapakIbu = new Paragraph();
             pUmurIstriBapakIbu.add("  Umur :");
             pUmurIstriBapakIbu.setLeading(0, 1);
-            
+
             PdfPCell cUmurIstriBapakIbu = new PdfPCell();
             cUmurIstriBapakIbu.setMinimumHeight(110);
             cUmurIstriBapakIbu.addElement(pUmurIstriBapakIbu);
             tabel9.addCell(cUmurIstriBapakIbu);
-            
+
             Paragraph pPekerjaanIstriBapakIbu = new Paragraph();
             pPekerjaanIstriBapakIbu.add("  Pekerjaan :");
             pPekerjaanIstriBapakIbu.setLeading(0, 1);
-            
+
             PdfPCell cPekerjaanIstriBapakIbu = new PdfPCell();
             cPekerjaanIstriBapakIbu.setMinimumHeight(110);
             cPekerjaanIstriBapakIbu.addElement(pPekerjaanIstriBapakIbu);
             tabel9.addCell(cPekerjaanIstriBapakIbu);
-            
+
             document.add(tabel9);
             //------------------------------------------------------------------------------------- NAMA ISTRI END
 
@@ -931,25 +935,25 @@ public class iText {
             cAnak2.setMinimumHeight(165);
             cAnak2.addElement(pAnak2);
             tabel11.addCell(cAnak2);
-            
+
             Paragraph pUmurAnak2 = new Paragraph();
             pUmurAnak2.add("  Umur : ");
             pUmurAnak2.setLeading(0, 1);
-            
+
             PdfPCell cUmurAnak2 = new PdfPCell();
             cUmurAnak2.setMinimumHeight(165);
             cUmurAnak2.addElement(pUmurAnak2);
             tabel11.addCell(cUmurAnak2);
-            
+
             Paragraph pPekarjaanAnak2 = new Paragraph();
             pPekarjaanAnak2.add("  Pekerjaan : ");
             pPekarjaanAnak2.setLeading(0, 1);
-            
+
             PdfPCell cPekerjaanAnak2 = new PdfPCell();
             cPekerjaanAnak2.setMinimumHeight(165);
             cPekerjaanAnak2.addElement(pPekarjaanAnak2);
             tabel11.addCell(cPekerjaanAnak2);
-            
+
             document.add(tabel11);
             //------------------------------------------------------------------------------------- ANAK2 END
 
@@ -1018,7 +1022,7 @@ public class iText {
             //------------------------------------------------------------------------------------- RUMUS SIDIK JARI END
 
             //------------------------------------------------------------------------------------- RIWAYAT SEKOLAH
-            float [] colom = {8,2};
+            float[] colom = {8, 2};
             PdfPTable tabel15 = new PdfPTable(colom);
             tabel15.setWidthPercentage(100);
 
@@ -1036,7 +1040,7 @@ public class iText {
             cRiwayatSekolah.setMinimumHeight(165);
             cRiwayatSekolah.addElement(pRiwayatSekolah);
             tabel15.addCell(cRiwayatSekolah);
-            
+
             Paragraph pTahunLulus = new Paragraph();
             pTahunLulus.add("Tahun Lulus");
             pTahunLulus.setLeading(0, 1);
@@ -1045,7 +1049,7 @@ public class iText {
             cTahunLulus.setMinimumHeight(165);
             cTahunLulus.addElement(pTahunLulus);
             tabel15.addCell(cTahunLulus);
-            
+
             document.add(tabel15);
             //------------------------------------------------------------------------------------- RIWAYAT SEKOLAH END
 
@@ -1090,11 +1094,25 @@ public class iText {
 
             Paragraph pDataKeteranganLain2 = new Paragraph();
             pDataKeteranganLain2.add("18.  Data Keterangan dan lain2 : ");
+            pDataKeteranganLain2.add("\n\n\n");
             pDataKeteranganLain2.setLeading(0, 1);
 
             PdfPCell cDataKeteranganLain2 = new PdfPCell();
-            cDataKeteranganLain2.setMinimumHeight(400);
             cDataKeteranganLain2.addElement(pDataKeteranganLain2);
+
+            float[] kolomkegiatan = {8, 2};
+            PdfPTable nestedTable = new PdfPTable(kolomkegiatan);
+
+            nestedTable.addCell(new Paragraph("Kegiatan"));
+            nestedTable.addCell(new Paragraph("Tanggal"));
+
+            for (int i = 0; i < list.size(); i++) {
+                nestedTable.addCell(new Paragraph(list.get(i).getNamakegiatan()));
+                nestedTable.addCell(new Paragraph(list.get(i).getTanggal()));
+            }
+
+            cDataKeteranganLain2.addElement(nestedTable);
+            cDataKeteranganLain2.setPaddingBottom(20f);
             tabel18.addCell(cDataKeteranganLain2);
 
             document.add(tabel18);
@@ -1109,5 +1127,6 @@ public class iText {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return output;
     }
 }
