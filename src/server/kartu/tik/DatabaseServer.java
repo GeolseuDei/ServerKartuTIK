@@ -22,16 +22,7 @@ public class DatabaseServer {
     public String idUser;
     public String namaUser;
     public String tipeUser;
-    //untuk form pengaturan hakakses
-    public String namaHakakses;
-    public String hakspesial;
-    //untuk data diri di form pencarian
-    public String nik;
-    public String nama;
-    public String alias;
-    public String alamat;
-    public String jeniskelamin;
-    public String tanggallahir;
+    public String hakspesialUser;
 
     static DataTIK d = new DataTIK();
 
@@ -67,13 +58,14 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "select login.id,anggota.nama,login.status from login inner join anggota on login.id=anggota.id where login.username='" + username + "' and login.password='" + password + "'"
+                        "select login.id,anggota.nama,login.status,login.hakspesial from login inner join anggota on login.id=anggota.id where login.username='" + username + "' and login.password='" + password + "'"
                 );
                 ResultSet hasil = sql.executeQuery();
                 if (hasil.next()) {
                     idUser = hasil.getString("id");
                     namaUser = hasil.getString("nama");
                     tipeUser = hasil.getString("status");
+                    hakspesialUser = hasil.getString("hakspesial");
                     status = true;
                 }
             }
@@ -90,7 +82,7 @@ public class DatabaseServer {
         return status;
     }
 
-    public ArrayList Ambil10DataLogMenuAdmin() {
+    public ArrayList Ambil10DataLogMenuAdmin(String tanggalhariini) {
         ArrayList list = new ArrayList<>();
         Connection myCon = null;
         try {
@@ -98,7 +90,7 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "SELECT anggota.nama,log.event,log.waktu FROM log inner join anggota on log.id_anggota=anggota.id order by log.waktu desc limit 10"
+                        "SELECT anggota.nama,log.event,log.waktu FROM log inner join anggota on log.id_anggota=anggota.id where log.waktu like '" + tanggalhariini + "%' ORDER by waktu DESC LIMIT 10"
                 );
                 ResultSet hasil = sql.executeQuery();
                 while (hasil.next()) {
@@ -341,7 +333,35 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "UPDATE `datatik` SET `namalengkap`=" + d.getNamalengkap() + ",`alias`=" + d.getAlias() + ",`tglnoktp`=" + d.getTglnoktp() + ",`tglnopasport`=[value-5],`agama`=[value-6],`tgllahir`=[value-7],`umur`=[value-8],`tempatlahir`=[value-9],`alamat`=[value-10],`perubahanalamat1`=[value-11],`perubahanalamat2`=[value-12],`perubahanalamat3`=[value-13],`kedudukandalamkeluarga`=[value-14],`namabapak`=[value-15],`namaibu`=[value-16],`alamatorangtua`=[value-17],`pekerjaan`=[value-18],`jabatan`=[value-19],`instansilembagakantor`=[value-20],`namaistri`=[value-21],`umuristri`=[value-22],`pekerjaanistri`=[value-23],`namabapakistri`=[value-24],`umurbapakistri`=[value-25],`pekerjaanbapakistri`=[value-26],`namaibuistri`=[value-27],`umuribuistri`=[value-28],`pekerjaanibuistri`=[value-29],`alamatorangtuaistri`=[value-30],`tanggungan`=[value-31],`alamattanggungan`=[value-32],`namaanak1`=[value-33],`umuranak1`=[value-34],`pekerjaananak1`=[value-35],`namaanak2`=[value-36],`umuranak2`=[value-37],`pekerjaananak2`=[value-38],`namaanak3`=[value-39],`umuranak3`=[value-40],`pekerjaananak3`=[value-41],`namaanak4`=[value-42],`umuranak4`=[value-43],`pekerjaananak4`=[value-44],`namaanak5`=[value-45],`umuranak5`=[value-46],`pekerjaananak5`=[value-47],`namaanak6`=[value-48],`umuranak6`=[value-49],`pekerjaananak6`=[value-50],`rambut`=[value-51],`muka`=[value-52],`kulit`=[value-53],`tinggi`=[value-54],`tandaistimewa`=[value-55],`rumussidikjari`=[value-56],`namasekolah1`=[value-57],`tahunlulussekolah1`=[value-58],`namasekolah2`=[value-59],`tahunlulussekolah2`=[value-60],`namasekolah3`=[value-61],`tahunlulussekolah3`=[value-62],`namasekolah4`=[value-63],`tahunlulussekolah4`=[value-64],`namasekolah5`=[value-65],`tahunlulussekolah5`=[value-66],`namasekolah6`=[value-67],`tahunlulussekolah6`=[value-68],`hobi`=[value-69],`catatankriminal1`=[value-70],`catatankriminal2`=[value-71],`catatankriminal3`=[value-72],`urlfoto`=[value-73] WHERE id=" + id
+                        "UPDATE `datatik` SET `namalengkap`='" + d.getNamalengkap() + "',`alias`='" + d.getAlias() + "',`tglnoktp`='" + d.getTglnoktp() + "',`tglnopasport`='" + d.getTglnopasport() + "',`agama`='" + d.getAgama() + "',`tgllahir`='" + d.getTgllahir() + "',`umur`='" + d.getUmur() + "',`tempatlahir`='" + d.getTempatlahir() + "',`alamat`='" + d.getAlamat() + "',`perubahanalamat1`='" + d.getPerubahanalamat1() + "',`perubahanalamat2`='" + d.getPerubahanalamat2() + "',`perubahanalamat3`='" + d.getPerubahanalamat3() + "',`kedudukandalamkeluarga`='" + d.getKedudukan() + "',`namabapak`='" + d.getNamabapak() + "',`namaibu`='" + d.getNamaibu() + "',`alamatorangtua`='" + d.getAlamatorgtua() + "',`pekerjaan`='" + d.getPekerjaan() + "',`jabatan`='" + d.getJabatan() + "',`instansilembagakantor`='" + d.getInstansilembagakantor() + "',`namaistri`='" + d.getNamaistri() + "',`umuristri`='" + d.getUmuristri() + "',`pekerjaanistri`='" + d.getPekerjaanistri() + "',`namabapakistri`='" + d.getNamabapakistri() + "',`umurbapakistri`='" + d.getUmurbapakistri() + "',`pekerjaanbapakistri`='" + d.getPekerjaanbapakistri() + "',`namaibuistri`='" + d.getNamaibuistri() + "',`umuribuistri`='" + d.getUmuribuistri() + "',`pekerjaanibuistri`='" + d.getPekerjaanibuistri() + "',`alamatorangtuaistri`='" + d.getAlamatorgtuaistri() + "',`tanggungan`='" + d.getTanggungan() + "',`alamattanggungan`='" + d.getAlamattanggungan() + "',`namaanak1`='" + d.getNamaanak1() + "',`umuranak1`='" + d.getUmuranak1() + "',`pekerjaananak1`='" + d.getPekerjaananak1() + "',`namaanak2`='" + d.getNamaanak2() + "',`umuranak2`='" + d.getUmuranak2() + "',`pekerjaananak2`='" + d.getPekerjaananak2() + "',`namaanak3`='" + d.getNamaanak3() + "',`umuranak3`='" + d.getUmuranak3() + "',`pekerjaananak3`='" + d.getPekerjaananak3() + "',`namaanak4`='" + d.getNamaanak4() + "',`umuranak4`='" + d.getUmuranak4() + "',`pekerjaananak4`='" + d.getPekerjaananak4() + "',`namaanak5`='" + d.getNamaanak5() + "',`umuranak5`='" + d.getUmuranak5() + "',`pekerjaananak5`='" + d.getPekerjaananak5() + "',`namaanak6`='" + d.getNamaanak6() + "',`umuranak6`='" + d.getUmuranak6() + "',`pekerjaananak6`='" + d.getPekerjaananak6() + "',`rambut`='" + d.getRambut() + "',`muka`='" + d.getMuka() + "',`kulit`='" + d.getKulit() + "',`tinggi`='" + d.getTinggi() + "',`tandaistimewa`='" + d.getTandaistimewa() + "',`rumussidikjari`='" + d.getRumussidikjari() + "',`namasekolah1`='" + d.getNamasekolah1() + "',`tahunlulussekolah1`='" + d.getTahunlulussekolah1() + "',`namasekolah2`='" + d.getNamasekolah2() + "',`tahunlulussekolah2`='" + d.getTahunlulussekolah2() + "',`namasekolah3`='" + d.getNamasekolah3() + "',`tahunlulussekolah3`='" + d.getTahunlulussekolah3() + "',`namasekolah4`='" + d.getNamasekolah4() + "',`tahunlulussekolah4`='" + d.getTahunlulussekolah4() + "',`namasekolah5`='" + d.getNamasekolah5() + "',`tahunlulussekolah5`='" + d.getTahunlulussekolah5() + "',`namasekolah6`='" + d.getNamasekolah6() + "',`tahunlulussekolah6`='" + d.getTahunlulussekolah6() + "',`hobi`='" + d.getHobi() + "',`catatankriminal1`='" + d.getCatatankriminal1() + "',`catatankriminal2`='" + d.getCatatankriminal2() + "',`catatankriminal3`='" + d.getCatatankriminal3() + "' WHERE id=" + id
+                );
+
+                int a = sql.executeUpdate();
+                status = true;
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return status;
+    }
+
+    public boolean UpdateFOTOTIK(String urlfoto, String id) {
+        boolean status = false;
+        String urlfixed = urlfoto.replaceAll("\\\\", "/");
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "UPDATE `datatik` SET urlfoto='" + urlfixed + "' where id=" + id
                 );
 
                 int a = sql.executeUpdate();
@@ -518,9 +538,32 @@ public class DatabaseServer {
         return list;
     }
 
-    public boolean InsertKegiatan(String id, String kegiatan, String waktu) {
+    public boolean InsertKegiatan(String noktp, String kegiatan, String waktu) {
         boolean status = false;
+        String id = "";
         Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "select id from datatik where tglnoktp='" + noktp + "'"
+                );
+                ResultSet hasil = sql.executeQuery();
+                if (hasil.next()) {
+                    id = hasil.getString("id");
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
@@ -544,8 +587,8 @@ public class DatabaseServer {
         }
         return status;
     }
-    
-    public boolean UpdateFOTO(String urlfoto , String noktp) {
+
+    public boolean InsertFOTOTIK(String urlfoto, String noktp) {
         boolean status = false;
         String urlfixed = urlfoto.replaceAll("\\\\", "/");
         Connection myCon = null;
@@ -554,7 +597,7 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "update datatik set urlfoto='"+urlfixed+"' where tglnoktp='"+noktp+"'"
+                        "update datatik set urlfoto='" + urlfixed + "' where tglnoktp='" + noktp + "'"
                 );
 
                 int a = sql.executeUpdate();
@@ -571,5 +614,207 @@ public class DatabaseServer {
             }
         }
         return status;
+    }
+
+    public boolean UpdateNama(String id, String namabaru) {
+        boolean status = false;
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "update anggota set nama='" + namabaru + "' where id=" + id
+                );
+
+                int a = sql.executeUpdate();
+                status = true;
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return status;
+    }
+
+    public boolean CekPasswordLama(String id, String passwordlama) {
+        boolean status = false;
+        String passworddblama = "";
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "select password from login where id=" + id
+                );
+                ResultSet hasil = sql.executeQuery();
+                if (hasil.next()) {
+                    passworddblama = hasil.getString("password");
+                    if (passworddblama.equals(passwordlama)) {
+                        status = true;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return status;
+    }
+
+    public boolean UpdatePassword(String id, String password) {
+        boolean status = false;
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "update login set password='" + password + "' where id=" + id
+                );
+
+                int a = sql.executeUpdate();
+                status = true;
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return status;
+    }
+
+    public String AmbilDataHakAkses(String noinduk) {
+        String data = "";
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "SELECT anggota.nama,login.hakspesial FROM `login` inner join anggota on login.id=anggota.id where anggota.noinduk=" + noinduk
+                );
+                ResultSet hasil = sql.executeQuery();
+                if (hasil.next()) {
+                    String nama = hasil.getString("nama");
+                    String hak = hasil.getString("hakspesial");
+                    data = nama + "," + hak;
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return data;
+    }
+
+    public boolean UpdateHakAkses(String noinduk, String jenis) {
+        boolean status = false;
+        String id = "";
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "select id from anggota where noinduk=" + noinduk
+                );
+                ResultSet hasil = sql.executeQuery();
+                if (hasil.next()) {
+                    id = hasil.getString("id");
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+
+        String hakakses = "";
+        if (jenis.equalsIgnoreCase("beri")) {
+            hakakses = "1";
+        } else if (jenis.equalsIgnoreCase("cabut")) {
+            hakakses = "0";
+        }
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "update login set hakspesial='" + hakakses + "' where id=" + id
+                );
+
+                int a = sql.executeUpdate();
+                status = true;
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return status;
+    }
+
+    public String AmbilNamaByKTP(String ktp) {
+        String nama = "";
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "select namalengkap from datatik where tglnoktp='" + ktp + "'"
+                );
+                ResultSet hasil = sql.executeQuery();
+                if (hasil.next()) {
+                    nama = hasil.getString("namalengkap");
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return nama;
     }
 }

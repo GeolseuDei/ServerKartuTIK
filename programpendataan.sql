@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 11, 2017 at 05:50 AM
+-- Generation Time: Mar 16, 2017 at 03:37 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -127,8 +127,7 @@ CREATE TABLE `datatik` (
 --
 
 INSERT INTO `datatik` (`id`, `namalengkap`, `alias`, `tglnoktp`, `tglnopasport`, `agama`, `tgllahir`, `umur`, `tempatlahir`, `alamat`, `perubahanalamat1`, `perubahanalamat2`, `perubahanalamat3`, `kedudukandalamkeluarga`, `namabapak`, `namaibu`, `alamatorangtua`, `pekerjaan`, `jabatan`, `instansilembagakantor`, `namaistri`, `umuristri`, `pekerjaanistri`, `namabapakistri`, `umurbapakistri`, `pekerjaanbapakistri`, `namaibuistri`, `umuribuistri`, `pekerjaanibuistri`, `alamatorangtuaistri`, `tanggungan`, `alamattanggungan`, `namaanak1`, `umuranak1`, `pekerjaananak1`, `namaanak2`, `umuranak2`, `pekerjaananak2`, `namaanak3`, `umuranak3`, `pekerjaananak3`, `namaanak4`, `umuranak4`, `pekerjaananak4`, `namaanak5`, `umuranak5`, `pekerjaananak5`, `namaanak6`, `umuranak6`, `pekerjaananak6`, `rambut`, `muka`, `kulit`, `tinggi`, `tandaistimewa`, `rumussidikjari`, `namasekolah1`, `tahunlulussekolah1`, `namasekolah2`, `tahunlulussekolah2`, `namasekolah3`, `tahunlulussekolah3`, `namasekolah4`, `tahunlulussekolah4`, `namasekolah5`, `tahunlulussekolah5`, `namasekolah6`, `tahunlulussekolah6`, `hobi`, `catatankriminal1`, `catatankriminal2`, `catatankriminal3`, `urlfoto`) VALUES
-(1, 'Erwin Kurniawan Adidharma', 'Erwin', '3578241911950001', '123456789', 'Kristen', '19-11-1995', '21', 'Surabaya', 'Kutisari Indah Barat 2/23', '', '', '', 'Anak', 'Jusak Pribadi', 'Pinto Yuliwati', 'Kutisari Indah Barat 2/23', 'Mahasiswa', 'Pelajar', 'Universitas Surabaya (UBAYA)', 'Dahyun', '19', 'Idol', '', '', '', '', '', '', 'KOREA', 'Hidup', 'Dalam dirinya', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Hitam', 'Ganteng', 'Kuning', '180', 'Kurus', '69/69', 'TK Kristen Petra 9', '2000', 'SD Kristen Petra 9', '2008', 'SMP Kristen Petra 5', '2011', 'SMA Kristen Petra 5', '2014', '', '', '', '', 'Gaming', '', '', '', 'F:\\NetBeansProjects\\Server Kartu TIK\\src\\data\\foto\\123456789DAHYUN.jpg'),
-(6, 'SMITE', 'SMET', '123456789', '321654987', 'Atheist', '1-1-1945', '99', 'USA', '', '', '', '', '', '', '', 'null', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'F:/NetBeansProjects/Server Kartu TIK/src/data/foto/123456789SMITE.png');
+(1, 'Erwin Kurniawan Adidharma', 'Erwin', '3578241911950001', '123456789', 'Kristen', '19-11-1995', '21', 'Surabaya', 'Kutisari Indah Barat 2/23', '', '', '', 'Anak', 'Jusak Pribadi', 'Pinto Yuliwati', 'Kutisari Indah Barat 2/23', 'Mahasiswa', 'Pelajar', 'Universitas Surabaya (UBAYA)', 'Dahyun', '19', 'Idol', '', '', '', '', '', '', 'KOREA', 'Hidup', 'Dalam dirinya', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Hitam', 'Ganteng', 'Kuning', '180', 'Kurus', '69/69', 'TK Kristen Petra 9', '2000', 'SD Kristen Petra 9', '2008', 'SMP Kristen Petra 5', '2011', 'SMA Kristen Petra 5', '2014', '', '', '', '', 'Gaming', '', '', '', 'F:\\NetBeansProjects\\Server Kartu TIK\\src\\data\\foto\\123456789DAHYUN.jpg');
 
 -- --------------------------------------------------------
 
@@ -156,7 +155,8 @@ INSERT INTO `kegiatan` (`id`, `id_TIK`, `kegiatan`, `tanggal`) VALUES
 (6, 2, 'VUVUVUVUVUVUUVUV', '15-02-2017'),
 (7, 1, 'NGODING', '15-02-2017'),
 (8, 1, 'ngoding foto form pencarian', '11-03-2017'),
-(9, 1, 'testing', '11-03-2017');
+(9, 1, 'testing', '11-03-2017'),
+(10, 1, 'selesai ngoding', '16-03-2017');
 
 -- --------------------------------------------------------
 
@@ -176,11 +176,6 @@ CREATE TABLE `log` (
 --
 
 INSERT INTO `log` (`id`, `id_anggota`, `event`, `waktu`) VALUES
-(2, 1, 'Sukses Login ke server', '10-23-2017 08:23:51'),
-(3, 1, 'Sukses Login ke server', '10-54-2017 10:54:14'),
-(4, 1, 'Sukses Login ke server', '10-56-2017 10:56:11'),
-(5, 1, 'Sukses Login ke server', '10-57-2017 10:57:18'),
-(6, 1, 'Sukses Login ke server', '10-57-2017 10:57:39'),
 (7, 2, 'Sukses Login ke server', '12-02-2017 10:24:07'),
 (8, 1, 'Sukses Login ke server', '12-02-2017 10:24:18'),
 (9, 1, 'Sukses Login ke server', '12-02-2017 10:24:28'),
@@ -229,7 +224,61 @@ INSERT INTO `log` (`id`, `id_anggota`, `event`, `waktu`) VALUES
 (52, 1, 'Sukses Login ke server', '18-02-2017 06:44:59'),
 (53, 1, 'Sukses Login ke server', '18-02-2017 06:46:33'),
 (54, 1, 'Sukses Login ke server', '18-02-2017 06:49:46'),
-(55, 1, 'Sukses Login ke server', '22-02-2017 12:01:57');
+(55, 1, 'Sukses Login ke server', '22-02-2017 12:01:57'),
+(58, 2, 'Berhasil login', '16-03-2017 11:59:56'),
+(59, 1, 'Berhasil login', '16-03-2017 12:01:18'),
+(60, 1, 'Berhasil login', '16-03-2017 12:02:22'),
+(61, 1, 'Berhasil login', '16-03-2017 12:02:55'),
+(62, 1, 'Berhasil login', '16-03-2017 12:04:04'),
+(63, 2, 'Berhasil login', '16-03-2017 12:16:17'),
+(64, 2, 'Berhasil login', '16-03-2017 12:17:52'),
+(65, 1, 'Berhasil login', '16-03-2017 12:19:54'),
+(66, 1, 'Berhasil login', '16-03-2017 12:21:38'),
+(67, 1, 'Berhasil login', '16-03-2017 12:21:43'),
+(68, 1, 'Berhasil login', '16-03-2017 12:23:40'),
+(69, 2, 'Berhasil login', '16-03-2017 12:23:48'),
+(70, 2, 'Keluar dari sistem', '16-03-2017 12:23:54'),
+(71, 1, 'Berhasil login', '16-03-2017 12:24:02'),
+(72, 1, 'Keluar dari sistem', '16-03-2017 12:24:05'),
+(73, 1, 'Keluar dari sistem', '16-03-2017 12:24:32'),
+(74, 1, 'Berhasil masuk ke sistem', '16-03-2017 12:55:36'),
+(75, 1, 'Berhasil masuk ke sistem', '16-03-2017 12:55:44'),
+(76, 1, 'Menghapus data milik asdasdasd', '16-03-2017 12:56:01'),
+(77, 1, 'Memberi hak akses spesial kepada no induk 5555', '16-03-2017 12:56:22'),
+(78, 1, 'Berhasil masuk ke sistem', '16-03-2017 12:57:19'),
+(79, 1, 'Mencabut hak akses spesial no induk 5555', '16-03-2017 12:57:39'),
+(80, 1, 'Keluar dari sistem', '16-03-2017 12:58:19'),
+(81, 1, 'Berhasil masuk ke sistem', '16-03-2017 12:58:53'),
+(82, 1, 'Keluar dari sistem', '16-03-2017 12:58:58'),
+(83, 2, 'Berhasil masuk ke sistem', '16-03-2017 12:59:01'),
+(84, 2, 'Berhasil masuk ke sistem', '16-03-2017 13:01:44'),
+(85, 2, 'Berhasil masuk ke sistem', '16-03-2017 13:02:26'),
+(86, 2, 'Berhasil masuk ke sistem', '16-03-2017 13:04:46'),
+(87, 2, 'Berhasil masuk ke sistem', '16-03-2017 13:05:11'),
+(88, 2, 'Keluar dari sistem', '16-03-2017 13:05:17'),
+(89, 1, 'Berhasil masuk ke sistem', '16-03-2017 13:05:19'),
+(90, 1, 'Mencabut hak akses spesial no induk 4444', '16-03-2017 13:05:30'),
+(91, 1, 'Keluar dari sistem', '16-03-2017 13:05:32'),
+(92, 2, 'Berhasil masuk ke sistem', '16-03-2017 13:05:34'),
+(93, 2, 'Keluar dari sistem', '16-03-2017 13:05:55'),
+(94, 1, 'Berhasil masuk ke sistem', '16-03-2017 13:06:00'),
+(95, 1, 'Memberi hak akses spesial kepada no induk 4444', '16-03-2017 13:06:59'),
+(96, 1, 'Keluar dari sistem', '16-03-2017 13:07:01'),
+(97, 2, 'Berhasil masuk ke sistem', '16-03-2017 13:07:03'),
+(98, 1, 'Berhasil masuk ke sistem', '16-03-2017 13:07:15'),
+(99, 2, 'Menambah kegiatan selesai ngoding', '16-03-2017 13:07:50'),
+(100, 2, 'Keluar dari sistem', '16-03-2017 13:08:09'),
+(101, 1, 'Berhasil masuk ke sistem', '16-03-2017 21:08:42'),
+(102, 1, 'Keluar dari sistem', '16-03-2017 21:09:14'),
+(103, 1, 'Berhasil masuk ke sistem', '16-03-2017 21:20:27'),
+(104, 2, 'Berhasil masuk ke sistem', '16-03-2017 21:21:20'),
+(105, 2, 'Menghapus data milik dsadsa', '16-03-2017 21:22:00'),
+(106, 2, 'Menghapus data milik sadasd', '16-03-2017 21:22:04'),
+(107, 2, 'Merubah data milik Erwin Kurniawan Adidharma', '16-03-2017 21:22:14'),
+(108, 2, 'Menambahkan data milik asdasdsadsad', '16-03-2017 21:22:30'),
+(109, 2, 'Menambahkan foto milik asdasdsadsad', '16-03-2017 21:22:51'),
+(110, 2, 'Menghapus data milik asdasdsadsad', '16-03-2017 21:22:59'),
+(111, 1, 'Keluar dari sistem', '16-03-2017 21:26:05');
 
 -- --------------------------------------------------------
 
@@ -251,7 +300,7 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`id`, `username`, `password`, `status`, `hakspesial`) VALUES
 (1, 'admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0),
-(2, 'member', 'aa08769cdcb26674c6706093503ff0a3', 0, 0);
+(2, 'member', 'aa08769cdcb26674c6706093503ff0a3', 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -300,17 +349,17 @@ ALTER TABLE `anggota`
 -- AUTO_INCREMENT for table `datatik`
 --
 ALTER TABLE `datatik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 --
 -- AUTO_INCREMENT for table `login`
 --

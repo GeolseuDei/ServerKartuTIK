@@ -1100,20 +1100,22 @@ public class iText {
             PdfPCell cDataKeteranganLain2 = new PdfPCell();
             cDataKeteranganLain2.addElement(pDataKeteranganLain2);
 
-            float[] kolomkegiatan = {8, 2};
-            PdfPTable nestedTable = new PdfPTable(kolomkegiatan);
+            if (list.size() > 0) {
+                float[] kolomkegiatan = {8, 2};
+                PdfPTable nestedTable = new PdfPTable(kolomkegiatan);
 
-            nestedTable.addCell(new Paragraph("Kegiatan"));
-            nestedTable.addCell(new Paragraph("Tanggal"));
+                nestedTable.addCell(new Paragraph("Kegiatan"));
+                nestedTable.addCell(new Paragraph("Tanggal"));
 
-            for (int i = 0; i < list.size(); i++) {
-                nestedTable.addCell(new Paragraph(list.get(i).getNamakegiatan()));
-                nestedTable.addCell(new Paragraph(list.get(i).getTanggal()));
+                for (int i = 0; i < list.size(); i++) {
+                    nestedTable.addCell(new Paragraph(list.get(i).getNamakegiatan()));
+                    nestedTable.addCell(new Paragraph(list.get(i).getTanggal()));
+                }
+
+                cDataKeteranganLain2.addElement(nestedTable);
+                cDataKeteranganLain2.setPaddingBottom(20f);
+                tabel18.addCell(cDataKeteranganLain2);
             }
-
-            cDataKeteranganLain2.addElement(nestedTable);
-            cDataKeteranganLain2.setPaddingBottom(20f);
-            tabel18.addCell(cDataKeteranganLain2);
 
             document.add(tabel18);
             //------------------------------------------------------------------------------------- KETERANGAN DLL END
