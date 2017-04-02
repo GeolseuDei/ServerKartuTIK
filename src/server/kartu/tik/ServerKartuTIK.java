@@ -37,7 +37,9 @@ public class ServerKartuTIK {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws InterruptedException {
+    static boolean statusServer = true;
+    
+    public static void main(String[] args) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
         String jamskrg = sdf.format(date);
@@ -47,7 +49,7 @@ public class ServerKartuTIK {
         try {
             ss = new ServerSocket(port);
             System.out.println("Server started | " + jamskrg);
-            while (true) {
+            while (statusServer) {
                 Socket socket = ss.accept();
                 new Thread(new Runnable() {
                     @Override
@@ -429,7 +431,11 @@ public class ServerKartuTIK {
             output.println(ds.d.getCatatankriminal1());
             output.println(ds.d.getCatatankriminal2());
             output.println(ds.d.getCatatankriminal3());
-
+            output.println(ds.d.getUrlfoto());
+        }
+        if(jenisdata.equalsIgnoreCase("ambilfotoubah")){
+            String id = input.readLine();
+            ds.AmbilFOTOTIKbyID(id);
             System.out.println(ds.d.getUrlfoto());
             output.println(ds.d.getTglnoktp() + ds.d.getNamalengkap() + ".jpg");
             OutputStream outputStream = incoming.getOutputStream();
@@ -446,7 +452,6 @@ public class ServerKartuTIK {
             System.out.println("Flushed: " + System.currentTimeMillis());
 
             System.out.println("Closing: " + System.currentTimeMillis());
-
         }
         if (jenisdata.equalsIgnoreCase("ambildatalengkapbyktp")) {
             String ktp = input.readLine();

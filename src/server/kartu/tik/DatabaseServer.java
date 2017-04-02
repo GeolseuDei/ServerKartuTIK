@@ -325,6 +325,34 @@ public class DatabaseServer {
         }
     }
 
+    public void AmbilFOTOTIKbyID(String id) {
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "select * from datatik where id='" + id + "'"
+                );
+                ResultSet hasil = sql.executeQuery();
+                if (hasil.next()) {
+                    d.setNamalengkap(hasil.getString("namalengkap"));
+                    d.setTglnoktp(hasil.getString("tglnoktp"));
+                    d.setUrlfoto(hasil.getString("urlfoto"));
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+    }
+    
     public boolean UpdateTIK(String id) {
         boolean status = false;
         Connection myCon = null;

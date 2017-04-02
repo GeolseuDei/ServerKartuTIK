@@ -728,12 +728,16 @@ public class iText {
             cell = new PdfPCell(innerTable1);
             cell.setMinimumHeight(135);
             tabel1.addCell(cell);
-            Image image = Image.getInstance(getUrlfoto());
-            cell = new PdfPCell(image, false);
-            if (image.getWidth() < 90) {
-                cell.setPaddingLeft(8);
+            if (getUrlfoto().equalsIgnoreCase("") || getUrlfoto().isEmpty() || getUrlfoto() == null) {
+                
             } else {
-                cell.setPaddingLeft(3);
+                Image image = Image.getInstance(getUrlfoto());
+                cell = new PdfPCell(image, false);
+                if (image.getWidth() < 90) {
+                    cell.setPaddingLeft(8);
+                } else {
+                    cell.setPaddingLeft(3);
+                }
             }
             cell.setMinimumHeight(135);
             tabel1.addCell(cell);
