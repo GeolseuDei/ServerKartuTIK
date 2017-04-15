@@ -23,17 +23,18 @@ public class DatabaseServer {
     public String namaUser;
     public String tipeUser;
     public String hakspesialUser;
+    public String divisi;
 
     static DataTIK d = new DataTIK();
 
-    public void InsertLog(String id, String event, String waktu) {
+    public void InsertLog(String id, String event, String waktu, String divisi) {
         Connection myCon = null;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "insert into log (id_anggota,event,waktu) values('" + id + "','" + event + "','" + waktu + "')"
+                        "insert into log (id_anggota,event,waktu,divisi) values('" + id + "','" + event + "','" + waktu + "','" + divisi + "')"
                 );
 
                 int a = sql.executeUpdate();
@@ -58,7 +59,7 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "select login.id,anggota.nama,login.status,login.hakspesial from login inner join anggota on login.id=anggota.id where login.username='" + username + "' and login.password='" + password + "'"
+                        "select login.id,anggota.nama,login.status,login.hakspesial,anggota.divisi from login inner join anggota on login.id=anggota.id where login.username='" + username + "' and login.password='" + password + "'"
                 );
                 ResultSet hasil = sql.executeQuery();
                 if (hasil.next()) {
@@ -66,6 +67,7 @@ public class DatabaseServer {
                     namaUser = hasil.getString("nama");
                     tipeUser = hasil.getString("status");
                     hakspesialUser = hasil.getString("hakspesial");
+                    divisi = hasil.getString("divisi");
                     status = true;
                 }
             }
@@ -82,7 +84,7 @@ public class DatabaseServer {
         return status;
     }
 
-    public ArrayList Ambil10DataLogMenuAdmin(String tanggalhariini) {
+    public ArrayList Ambil10DataLogMenuAdmin(String tanggalhariini, String divisi) {
         ArrayList list = new ArrayList<>();
         Connection myCon = null;
         try {
@@ -90,7 +92,7 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "SELECT anggota.nama,log.event,log.waktu FROM log inner join anggota on log.id_anggota=anggota.id where log.waktu like '" + tanggalhariini + "%' ORDER by waktu DESC LIMIT 10"
+                        "SELECT anggota.nama,log.event,log.waktu FROM log inner join anggota on log.id_anggota=anggota.id where log.waktu like '" + tanggalhariini + "%' and anggota.divisi = '" + divisi + "' ORDER by waktu DESC LIMIT 10"
                 );
                 ResultSet hasil = sql.executeQuery();
                 while (hasil.next()) {
@@ -146,7 +148,7 @@ public class DatabaseServer {
         return list;
     }
 
-    public ArrayList AmbilDataTabelTIK() {
+    public ArrayList AmbilDataTabelTIK(String divisi) {
         ArrayList list = new ArrayList<>();
         Connection myCon = null;
         try {
@@ -154,7 +156,7 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "SELECT * from datatik"
+                        "SELECT * from datatik where divisi='" + divisi + "'"
                 );
                 ResultSet hasil = sql.executeQuery();
                 while (hasil.next()) {
@@ -198,7 +200,7 @@ public class DatabaseServer {
                         + " umuranak6, pekerjaananak6, rambut, muka, kulit, tinggi, tandaistimewa, rumussidikjari, namasekolah1,"
                         + " tahunlulussekolah1, namasekolah2, tahunlulussekolah2, namasekolah3, tahunlulussekolah3, "
                         + " namasekolah4, tahunlulussekolah4, namasekolah5, tahunlulussekolah5, namasekolah6, tahunlulussekolah6, "
-                        + " hobi, catatankriminal1, catatankriminal2, catatankriminal3, urlfoto) "
+                        + " hobi, catatankriminal1, catatankriminal2, catatankriminal3, urlfoto,divisi) "
                         + "VALUES ('" + d.getNamalengkap() + "', '" + d.getAlias() + "', '" + d.getTglnoktp() + "', '" + d.getTglnopasport() + "', '" + d.getAgama() + "', '" + d.getTgllahir() + "', '" + d.getUmur() + "', '" + d.getTempatlahir() + "', '" + d.getAlamat() + "', "
                         + " '" + d.getPerubahanalamat1() + "', '" + d.getPerubahanalamat2() + "', '" + d.getPerubahanalamat3() + "', '" + d.getKedudukan() + "', '" + d.getNamabapak() + "', '" + d.getNamaibu() + "',"
                         + " '" + d.getAlamatorgtua() + "', '" + d.getPekerjaan() + "', '" + d.getJabatan() + "', '" + d.getInstansilembagakantor() + "', '" + d.getNamaistri() + "', '" + d.getUmuristri() + "', '" + d.getPekerjaanistri() + "', "
@@ -209,7 +211,7 @@ public class DatabaseServer {
                         + " '" + d.getTinggi() + "', '" + d.getTandaistimewa() + "', '" + d.getRumussidikjari() + "', '" + d.getNamasekolah1() + "', '" + d.getTahunlulussekolah1() + "', '" + d.getNamasekolah2() + "', "
                         + " '" + d.getTahunlulussekolah2() + "', '" + d.getNamasekolah3() + "', '" + d.getTahunlulussekolah3() + "', '" + d.getNamasekolah4() + "', '" + d.getTahunlulussekolah4() + "', '" + d.getNamasekolah5() + "',"
                         + " '" + d.getTahunlulussekolah5() + "', '" + d.getNamasekolah6() + "', '" + d.getTahunlulussekolah6() + "', '" + d.getHobi() + "', '" + d.getCatatankriminal1() + "', '" + d.getCatatankriminal2() + "',"
-                        + " '" + d.getCatatankriminal3() + "', '')"
+                        + " '" + d.getCatatankriminal3() + "', '','" + d.getDivisi() + "')"
                 );
                 int a = sql.executeUpdate();
                 status = true;
@@ -311,6 +313,7 @@ public class DatabaseServer {
                     d.setCatatankriminal2(hasil.getString("catatankriminal2"));
                     d.setCatatankriminal3(hasil.getString("catatankriminal3"));
                     d.setUrlfoto(hasil.getString("urlfoto"));
+                    d.setDivisi(hasil.getString("divisi"));
                 }
             }
         } catch (Exception e) {
@@ -352,7 +355,7 @@ public class DatabaseServer {
             }
         }
     }
-    
+
     public boolean UpdateTIK(String id) {
         boolean status = false;
         Connection myCon = null;
@@ -434,7 +437,7 @@ public class DatabaseServer {
         return status;
     }
 
-    public boolean AmbilDataTIKbyKTP(String ktp) {
+    public boolean AmbilDataTIKbyKTP(String ktp, String divisi) {
         boolean status = false;
         Connection myCon = null;
         try {
@@ -442,7 +445,7 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "select * from datatik where tglnoktp='" + ktp + "'"
+                        "select * from datatik where tglnoktp='" + ktp + "' and divisi='" + divisi + "'"
                 );
                 ResultSet hasil = sql.executeQuery();
                 if (hasil.next()) {
@@ -818,7 +821,7 @@ public class DatabaseServer {
         return status;
     }
 
-    public String AmbilNamaByKTP(String ktp) {
+    public String AmbilNamaByKTP(String ktp, String divisi) {
         String nama = "";
         Connection myCon = null;
         try {
@@ -826,7 +829,7 @@ public class DatabaseServer {
             myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
             if (!myCon.isClosed()) {
                 PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
-                        "select namalengkap from datatik where tglnoktp='" + ktp + "'"
+                        "select namalengkap from datatik where tglnoktp='" + ktp + "' and divisi='" + divisi + "'"
                 );
                 ResultSet hasil = sql.executeQuery();
                 if (hasil.next()) {
@@ -844,5 +847,52 @@ public class DatabaseServer {
             }
         }
         return nama;
+    }
+
+    public boolean BuatAkunMember(String nama, String noinduk, String username, String password, String divisi) {
+        boolean status = false;
+        Connection myCon = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "insert into login (username,password,status,hakspesial) values ('" + username + "','" + password + "','0','0')"
+                );
+
+                int a = sql.executeUpdate();
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        try {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            myCon = DriverManager.getConnection("jdbc:mysql://localhost:3306/programpendataan", "root", "");
+            if (!myCon.isClosed()) {
+                PreparedStatement sql = (PreparedStatement) myCon.prepareStatement(
+                        "insert into anggota (noinduk,nama,divisi) values ('" + noinduk + "','" + nama + "','" + divisi + "')"
+                );
+
+                int a = sql.executeUpdate();
+                status = true;
+            }
+        } catch (Exception e) {
+            System.err.println("Exception: " + e.getMessage());
+        } finally {
+            try {
+                if (myCon != null) {
+                    myCon.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+        return status;
     }
 }

@@ -38,7 +38,7 @@ public class ServerKartuTIK {
      * @param args the command line arguments
      */
     static boolean statusServer = true;
-    
+
     public static void main(String[] args) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date = new Date();
@@ -100,13 +100,15 @@ public class ServerKartuTIK {
                 output.println(ds.namaUser);
                 output.println(ds.tipeUser);
                 output.println(ds.hakspesialUser);
-                ds.InsertLog(ds.idUser, "Berhasil masuk ke sistem", tanggaljamskrg);
+                output.println(ds.divisi);
+                ds.InsertLog(ds.idUser, "Berhasil masuk ke sistem", tanggaljamskrg, ds.divisi);
             } else {
                 output.println(false);
             }
         }
         if (jenisdata.equalsIgnoreCase("menulog")) {
-            ArrayList<Log> list = new ArrayList<>(ds.Ambil10DataLogMenuAdmin(tanggalskrg));
+            String divisi = input.readLine();
+            ArrayList<Log> list = new ArrayList<>(ds.Ambil10DataLogMenuAdmin(tanggalskrg, divisi));
             int sizeArray = list.size();
             output.println(sizeArray);
             for (int i = 0; i < sizeArray; i++) {
@@ -129,7 +131,8 @@ public class ServerKartuTIK {
             }
         }
         if (jenisdata.equalsIgnoreCase("tabeltik")) {
-            ArrayList<DataTIK> list = new ArrayList<>(ds.AmbilDataTabelTIK());
+            String divisi = input.readLine();
+            ArrayList<DataTIK> list = new ArrayList<>(ds.AmbilDataTabelTIK(divisi));
             int sizeArray = list.size();
             output.println(sizeArray);
             for (int i = 0; i < sizeArray; i++) {
@@ -224,6 +227,7 @@ public class ServerKartuTIK {
             String catatankriminal1 = input.readLine();
             String catatankriminal2 = input.readLine();
             String catatankriminal3 = input.readLine();
+            String divisi = input.readLine();
 
             ds.d.setNamalengkap(namalengkap);
             ds.d.setAlias(alias);
@@ -296,11 +300,12 @@ public class ServerKartuTIK {
             ds.d.setCatatankriminal1(catatankriminal1);
             ds.d.setCatatankriminal2(catatankriminal2);
             ds.d.setCatatankriminal3(catatankriminal3);
+            ds.d.setDivisi(divisi);
 
             if (ds.InsertTIK()) {
                 output.println(true);
                 String id = input.readLine();
-                ds.InsertLog(id, "Menambahkan data TIK (" + ds.d.getNamalengkap() + ")", tanggaljamskrg);
+                ds.InsertLog(id, "Menambahkan data TIK (" + ds.d.getNamalengkap() + ")", tanggaljamskrg, ds.d.getDivisi());
             } else {
                 output.println(false);
             }
@@ -308,6 +313,7 @@ public class ServerKartuTIK {
         if (jenisdata.equalsIgnoreCase("insertfoto")) {
             String namafoto = input.readLine();
             String noktp = input.readLine();
+            String divisi = input.readLine();
             System.out.println("Reading: " + System.currentTimeMillis());
 
             byte[] sizeAr = new byte[4];
@@ -325,7 +331,7 @@ public class ServerKartuTIK {
             if (ds.InsertFOTOTIK(urlfoto, noktp)) {
                 output.println(true);
                 String id = input.readLine();
-                ds.InsertLog(id, "Menambahkan foto milik " + ds.d.getNamalengkap(), tanggaljamskrg);
+                ds.InsertLog(id, "Menambahkan foto milik " + ds.d.getNamalengkap(), tanggaljamskrg, divisi);
             } else {
                 output.println(false);
             }
@@ -333,6 +339,7 @@ public class ServerKartuTIK {
         if (jenisdata.equalsIgnoreCase("updatefoto")) {
             String namafoto = input.readLine();
             String id = input.readLine();
+            String divisi = input.readLine();
             System.out.println("Reading: " + System.currentTimeMillis());
 
             byte[] sizeAr = new byte[4];
@@ -350,7 +357,7 @@ public class ServerKartuTIK {
             if (ds.UpdateFOTOTIK(urlfoto, id)) {
                 output.println(true);
                 String idUser = input.readLine();
-                ds.InsertLog(idUser, "Menambahkan foto milik " + ds.d.getNamalengkap(), tanggaljamskrg);
+                ds.InsertLog(idUser, "Menambahkan foto milik " + ds.d.getNamalengkap(), tanggaljamskrg, divisi);
             } else {
                 output.println(false);
             }
@@ -433,7 +440,7 @@ public class ServerKartuTIK {
             output.println(ds.d.getCatatankriminal3());
             output.println(ds.d.getUrlfoto());
         }
-        if(jenisdata.equalsIgnoreCase("ambilfotoubah")){
+        if (jenisdata.equalsIgnoreCase("ambilfotoubah")) {
             String id = input.readLine();
             ds.AmbilFOTOTIKbyID(id);
             System.out.println(ds.d.getUrlfoto());
@@ -455,7 +462,8 @@ public class ServerKartuTIK {
         }
         if (jenisdata.equalsIgnoreCase("ambildatalengkapbyktp")) {
             String ktp = input.readLine();
-            ds.AmbilDataTIKbyKTP(ktp);
+            String divisi = input.readLine();
+            ds.AmbilDataTIKbyKTP(ktp, divisi);
 
             output.println(ds.d.getId());
             output.println(ds.d.getNamalengkap());
@@ -605,6 +613,7 @@ public class ServerKartuTIK {
             String catatankriminal1 = input.readLine();
             String catatankriminal2 = input.readLine();
             String catatankriminal3 = input.readLine();
+            String divisi = input.readLine();
 
             ds.d.setNamalengkap(namalengkap);
             ds.d.setAlias(alias);
@@ -681,7 +690,7 @@ public class ServerKartuTIK {
             if (ds.UpdateTIK(id)) {
                 output.println(true);
                 String idUser = input.readLine();
-                ds.InsertLog(idUser, "Merubah data milik " + ds.d.getNamalengkap(), tanggaljamskrg);
+                ds.InsertLog(idUser, "Merubah data milik " + ds.d.getNamalengkap(), tanggaljamskrg, divisi);
             } else {
                 output.println(false);
             }
@@ -689,17 +698,19 @@ public class ServerKartuTIK {
         }
         if (jenisdata.equalsIgnoreCase("deleteTIK")) {
             String namalengkap = input.readLine();
+            String divisi = input.readLine();
             if (ds.DeleteTIK(namalengkap)) {
                 output.println(true);
                 String idUser = input.readLine();
-                ds.InsertLog(idUser, "Menghapus data milik " + namalengkap, tanggaljamskrg);
+                ds.InsertLog(idUser, "Menghapus data milik " + namalengkap, tanggaljamskrg, divisi);
             } else {
                 output.println(false);
             }
         }
         if (jenisdata.equalsIgnoreCase("ambildataTIKbyKTP")) {
             String ktp = input.readLine();
-            if (ds.AmbilDataTIKbyKTP(ktp)) {
+            String divisi = input.readLine();
+            if (ds.AmbilDataTIKbyKTP(ktp, divisi)) {
                 output.println(true);
                 output.println(ds.d.getId());
                 output.println(ds.d.getNamalengkap());
@@ -731,6 +742,7 @@ public class ServerKartuTIK {
         }
         if (jenisdata.equalsIgnoreCase("printdatatik")) {
             String namalengkap = input.readLine();
+            String divisi = input.readLine();
             ds.AmbilDataTIKbyNama(namalengkap);
 
             iText i = new iText();
@@ -807,7 +819,7 @@ public class ServerKartuTIK {
             i.setCatatankriminal3(ds.d.getCatatankriminal3());
             i.setUrlfoto(ds.d.getUrlfoto());
             ArrayList<Kegiatan> list = new ArrayList<>(ds.AmbilDataKegiatan(ds.d.getId()));
-            String url = i.createPDF(tanggalskrg, list);
+            String url = i.createPDF(tanggalskrg, list, ds.d.getDivisi());
             try {
                 FileInputStream fis = new FileInputStream(url);
                 classPrint p = new classPrint(fis, "Print TIK (" + i.getNamalengkap() + ")");
@@ -815,7 +827,7 @@ public class ServerKartuTIK {
                 output.println(true);
 
                 String idUser = input.readLine();
-                ds.InsertLog(idUser, "Meminta Print TIK (" + ds.d.getTglnoktp() + "," + ds.d.getNamalengkap() + ")", tanggaljamskrg);
+                ds.InsertLog(idUser, "Meminta Print TIK (" + ds.d.getTglnoktp() + "," + ds.d.getNamalengkap() + ")", tanggaljamskrg, divisi);
             } catch (PrinterException e) {
                 output.println(false);
             }
@@ -825,10 +837,11 @@ public class ServerKartuTIK {
             String kegiatan = input.readLine();
             String waktu = input.readLine();
             String nama = input.readLine();
+            String divisi = input.readLine();
             if (ds.InsertKegiatan(noktp, kegiatan, waktu)) {
                 output.println(true);
                 String idUser = input.readLine();
-                ds.InsertLog(idUser, "Menambah kegiatan (" + kegiatan + ") untuk " + nama, tanggaljamskrg);
+                ds.InsertLog(idUser, "Menambah kegiatan (" + kegiatan + ") untuk " + nama, tanggaljamskrg, divisi);
             } else {
                 output.println(false);
             }
@@ -875,13 +888,15 @@ public class ServerKartuTIK {
         if (jenisdata.equalsIgnoreCase("ubahhakakses")) {
             String noinduk = input.readLine();
             String jenis = input.readLine();
+            String nama = input.readLine();
+            String divisi = input.readLine();
             if (ds.UpdateHakAkses(noinduk, jenis)) {
                 output.println(true);
                 String idUser = input.readLine();
                 if (jenis.equalsIgnoreCase("beri")) {
-                    ds.InsertLog(idUser, "Memberi hak akses spesial kepada no induk " + noinduk, tanggaljamskrg);
+                    ds.InsertLog(idUser, "Memberi hak akses spesial kepada " + nama, tanggaljamskrg, divisi);
                 } else {
-                    ds.InsertLog(idUser, "Mencabut hak akses spesial no induk " + noinduk, tanggaljamskrg);
+                    ds.InsertLog(idUser, "Mencabut hak akses spesial milik " + nama, tanggaljamskrg, divisi);
                 }
             } else {
                 output.println(false);
@@ -889,12 +904,26 @@ public class ServerKartuTIK {
         }
         if (jenisdata.equalsIgnoreCase("logout")) {
             String id = input.readLine();
-            ds.InsertLog(id, "Keluar dari sistem", tanggaljamskrg);
+            String divisi = input.readLine();
+            ds.InsertLog(id, "Keluar dari sistem", tanggaljamskrg, divisi);
         }
 
         if (jenisdata.equalsIgnoreCase("ambilnamabyktp")) {
             String ktp = input.readLine();
-            output.println(ds.AmbilNamaByKTP(ktp));
+            String divisi = input.readLine();
+            output.println(ds.AmbilNamaByKTP(ktp, divisi));
+        }
+        if (jenisdata.equalsIgnoreCase("buatakunmember")) {
+            String nama = input.readLine();
+            String noinduk = input.readLine();
+            String username = input.readLine();
+            String password = DigestUtils.md5Hex(input.readLine());
+            String divisi = input.readLine();
+            if (ds.BuatAkunMember(nama, noinduk, username, password, divisi)) {
+                output.println(true);
+            } else {
+                output.println(true);
+            }
         }
     }
 }

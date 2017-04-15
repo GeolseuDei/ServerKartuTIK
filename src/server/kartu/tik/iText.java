@@ -688,10 +688,27 @@ public class iText {
         this.urlfoto = urlfoto;
     }
 
-    public String createPDF(String tanggal, ArrayList kegiatan) {
+    public String createPDF(String tanggal, ArrayList kegiatan, String divisi) {
         ArrayList<Kegiatan> list = new ArrayList<>(kegiatan);
 
         String output = System.getProperty("user.dir") + "\\src\\data\\pdf\\" + tanggal + " " + getNamalengkap() + "-" + getTglnoktp() + ".pdf";
+
+        String namaDivisi = "";
+        switch (divisi) {
+            case "1":
+                namaDivisi = "Ekonomi";
+                break;
+            case "2":
+                namaDivisi = "Politik";
+                break;
+            case "3":
+                namaDivisi = "Sosial Budaya";
+                break;
+            case "4":
+                namaDivisi = "Keamanan";
+                break;
+        }
+        
         Document document = new Document(PageSize.A4);
         try {
             PdfWriter.getInstance(document,
@@ -703,7 +720,7 @@ public class iText {
             PdfPTable title = new PdfPTable(1);
             title.setWidthPercentage(100);
             Font f = new Font(FontFamily.HELVETICA, 14, Font.NORMAL, GrayColor.GRAYWHITE);
-            PdfPCell celltitle = new PdfPCell(new Phrase("KARTU TIK", f));
+            PdfPCell celltitle = new PdfPCell(new Phrase("KARTU TIK (" + namaDivisi + ")", f));
             celltitle.setMinimumHeight(20);
             celltitle.setBackgroundColor(GrayColor.GRAYBLACK);
             celltitle.setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -729,7 +746,7 @@ public class iText {
             cell.setMinimumHeight(135);
             tabel1.addCell(cell);
             if (getUrlfoto().equalsIgnoreCase("") || getUrlfoto().isEmpty() || getUrlfoto() == null) {
-                
+
             } else {
                 Image image = Image.getInstance(getUrlfoto());
                 cell = new PdfPCell(image, false);
@@ -766,60 +783,66 @@ public class iText {
             //------------------------------------------------------------------------------------- TGL LAHIR + TEMPAT END
 
             //------------------------------------------------------------------------------------- ALAMAT + PINDAHAN
-            PdfPTable tabel5 = new PdfPTable(2);
+            PdfPTable tabel5 = new PdfPTable(1);
             tabel5.setWidthPercentage(100);
 
             Paragraph pAlamat = new Paragraph();
-            pAlamat.add("5.  Alamat : \n     ");
-            pAlamat.add(getAlamat());
+            pAlamat.add("5.  Alamat : ");
+            pAlamat.add(alamat);
             pAlamat.setLeading(0, 1);
 
             PdfPCell cAlamat = new PdfPCell();
-            cAlamat.setMinimumHeight(30);
+            cAlamat.setMinimumHeight(18);
             cAlamat.addElement(pAlamat);
             tabel5.addCell(cAlamat);
+            document.add(tabel5);
+            
+            PdfPTable tabel51 = new PdfPTable(1);
+            tabel51.setWidthPercentage(100);
 
             Paragraph pAlamatUbah = new Paragraph();
             pAlamatUbah.add("6.  Perubahan Alamat :");
-            pAlamatUbah.add("\n\n    1. " + getPerubahanalamat1());
-            pAlamatUbah.add("\n\n    2. " + getPerubahanalamat2());
-            pAlamatUbah.add("\n\n    3. " + getPerubahanalamat3());
+            pAlamatUbah.add("\n\n    1. ");
+            pAlamatUbah.add("\n\n    2. ");
+            pAlamatUbah.add("\n\n    3. ");
             pAlamatUbah.add("\n\n");
             pAlamatUbah.setLeading(0, 1);
 
             PdfPCell cAlamatUbah = new PdfPCell();
-            cAlamatUbah.setMinimumHeight(30);
             cAlamatUbah.addElement(pAlamatUbah);
-            tabel5.addCell(cAlamatUbah);
-
-            document.add(tabel5);
+            tabel51.addCell(cAlamatUbah);
+            document.add(tabel51);
             //------------------------------------------------------------------------------------- ALAMAT + PINDAHAN END
 
             //------------------------------------------------------------------------------------- KEDUDUKAN KELUARGA
-            PdfPTable tabel6 = new PdfPTable(2);
+            PdfPTable tabel6 = new PdfPTable(1);
             tabel6.setWidthPercentage(100);
 
             Paragraph pKedudukanKeluarga = new Paragraph();
-            pKedudukanKeluarga.add("7.  Kedudukan dalam Keluarga : \n     " + getKedudukan());
+            pKedudukanKeluarga.add("7.  Kedudukan dalam Keluarga : ");
             pKedudukanKeluarga.setLeading(0, 1);
 
             PdfPCell cKedudukanKeluarga = new PdfPCell();
-            cKedudukanKeluarga.setMinimumHeight(70);
+            cKedudukanKeluarga.setMinimumHeight(20);
             cKedudukanKeluarga.addElement(pKedudukanKeluarga);
             tabel6.addCell(cKedudukanKeluarga);
+            document.add(tabel6);
+
+            PdfPTable tabel61 = new PdfPTable(1);
+            tabel61.setWidthPercentage(100);
 
             Paragraph pNamaBapakIbu = new Paragraph();
-            pNamaBapakIbu.add("8.  a.  Nama Bapak : " + getNamabapak());
-            pNamaBapakIbu.add("\n\n          Nama Ibu      : " + getNamaibu());
-            pNamaBapakIbu.add("\n\n     b.  Alamat : " + getAlamatorgtua());
+            pNamaBapakIbu.add("8.  a.  Nama Bapak : ");
+            pNamaBapakIbu.add("\n\n          Nama Ibu      : ");
+            pNamaBapakIbu.add("\n\n     b.  Alamat : ");
             pNamaBapakIbu.setLeading(0, 1);
 
             PdfPCell cNamaBapakIbu = new PdfPCell();
             cNamaBapakIbu.setMinimumHeight(70);
             cNamaBapakIbu.addElement(pNamaBapakIbu);
-            tabel6.addCell(cNamaBapakIbu);
-
-            document.add(tabel6);
+            tabel61.addCell(cNamaBapakIbu);
+            
+            document.add(tabel61);
             //------------------------------------------------------------------------------------- KEDUDUKAN END
 
             //------------------------------------------------------------------------------------- PEKERJAAN
@@ -903,19 +926,32 @@ public class iText {
             //------------------------------------------------------------------------------------- NAMA ISTRI END
 
             //------------------------------------------------------------------------------------- SANAK SAUDARA
-            PdfPTable tabel10 = new PdfPTable(1);
+            PdfPTable tabel10 = new PdfPTable(colomn);
             tabel10.setWidthPercentage(100);
 
             Paragraph pSanakSaudara = new Paragraph();
-            pSanakSaudara.add("11.  Sanak/Saudara yang menjadi ");
-            pSanakSaudara.add("\n\n       Tanggungan : " + getTanggungan());
-            pSanakSaudara.add("\n\n\n       Alamat : " + getAlamattanggungan());
+            pSanakSaudara.add("11.  Nama Sanak/Saudara yang menjadi Tanggungan : \n       1.\n       2.");
             pSanakSaudara.setLeading(0, 1);
 
             PdfPCell cSanakSaudara = new PdfPCell();
-            cSanakSaudara.setMinimumHeight(85);
             cSanakSaudara.addElement(pSanakSaudara);
             tabel10.addCell(cSanakSaudara);
+            
+            Paragraph pSanakSaudara1 = new Paragraph();
+            pSanakSaudara1.add("");
+            pSanakSaudara1.setLeading(0, 1);
+
+            PdfPCell cSanakSaudara1 = new PdfPCell();
+            cSanakSaudara1.addElement(pSanakSaudara1);
+            tabel10.addCell(cSanakSaudara1);
+            
+            Paragraph pSanakSaudara2 = new Paragraph();
+            pSanakSaudara2.add("");
+            pSanakSaudara2.setLeading(0, 1);
+
+            PdfPCell cSanakSaudara2 = new PdfPCell();
+            cSanakSaudara2.addElement(pSanakSaudara2);
+            tabel10.addCell(cSanakSaudara2);
 
             document.add(tabel10);
             //------------------------------------------------------------------------------------- SANAK SAUDARA END

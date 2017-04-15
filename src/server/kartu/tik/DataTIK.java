@@ -84,6 +84,15 @@ public class DataTIK {
     private String catatankriminal2;
     private String catatankriminal3;
     private String urlfoto;
+    private String divisi;
+
+    public String getDivisi() {
+        return divisi;
+    }
+
+    public void setDivisi(String divisi) {
+        this.divisi = divisi;
+    }
 
     public String getId() {
         return id;
